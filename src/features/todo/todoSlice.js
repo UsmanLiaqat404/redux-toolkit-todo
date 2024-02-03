@@ -14,27 +14,23 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      const todo = {
+      state.todos.push({
         id: nanoid(),
         text: action.payload,
-      };
-
-      state.todos.push(todo);
-    },
-
-    removeTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => {
-        todo.id !== action.payload;
       });
     },
 
-    updateTodo: (state, action) => {
-      const { id, text } = action.payload;
-      const todoToUpdate = state.todos.find((todo) => todo.id === id);
+    removeTodo: (state, action) => {
+      const id = action.payload;
+      state.todos = state.todos.filter((todo) => todo.id !== id);
+    },
 
-      if (todoToUpdate) {
-        todoToUpdate.text = text;
-      }
+    updateTodo: (state, action) => {
+      state.todos = state.todos.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, text: action.payload.text }
+          : todo
+      );
     },
   },
 });

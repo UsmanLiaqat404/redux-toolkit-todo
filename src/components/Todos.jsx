@@ -7,37 +7,28 @@ function Todos() {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <div
-        style={{
-          fontSize: "20px",
-          fontWeight: "bold",
-          marginBottom: "10px",
-        }}
-      >
-        Todos
-      </div>
+    <div className="container mx-auto mt-8">
+      <div className="bg-white p-8 rounded shadow-lg">
+        <h2 className="text-2xl font-semibold mb-4">Todos</h2>
+        <ul>
+          {todos.map((todo) => (
+            <li
+              key={todo.id}
+              className="flex items-center justify-between border-b py-2"
+            >
+              <div className="text-lg">{todo.text}</div>
 
-      <ul>
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            style={{
-              listStyle: "none",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "10px",
-              border: "1px solid #3e3e3e",
-              margin: "10px",
-            }}
-          >
-            <div>{todo.text}</div>
-            <button onClick={() => dispatch(removeTodo(todo.id))}>X</button>
-          </li>
-        ))}
-      </ul>
-    </>
+              <button
+                onClick={() => dispatch(removeTodo(todo.id))}
+                className="text-red-500 hover:text-red-700 focus:outline-none"
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
